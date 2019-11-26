@@ -1,4 +1,4 @@
-version: "3"
+version: "3.2"
 services:
   db:
     image: "postgres"
@@ -19,5 +19,12 @@ services:
       - "8000:8000"
     stdin_open: true
     tty: true
-    command: cd frontend && npm run build && cd .. && python3 manage.py runserver 0.0.0.0:8000
+    command: bash -c "
+            apk add --update npm 
+            && cd frontend 
+            && npm install 
+            && npm run build 
+            && cd .. 
+            && python manage.py runserver 0.0.0.0:8000
+          "
   
