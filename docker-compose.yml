@@ -1,24 +1,23 @@
-version: "3.2"
+version: "3"
 services:
-  backend:
-    build: ./backend
+  db:
+    image: "postgres"
+    container_name: "postgres"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=pwd0123456789
+      - POSTGRES_DB=mydb
+    ports:
+      - "54320:5432"
     volumes:
-      - ./backend:/app/backend
+      - ./postgres-data:/var/lib/postgresql/data
+  app:
+    build: ./
+    volumes:
+      - ./:/app
     ports:
       - "8000:8000"
     stdin_open: true
     tty: true
-    command: python3 manage.py runserver 0.0.0.0:8000
-  frontend:
-    build: ./frontend
-    volumes:
-      - ./frontend:/app
-      # One-way volume to use node_modules from inside image
-      - /app/node_modules
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=development
-    depends_on:
-      - backend
-    command: npm start
+    command: cd frontend && npm run build && cd .. && python3 manage.py runserver 0.0.0.0:8000
+  
