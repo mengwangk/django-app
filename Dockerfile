@@ -1,16 +1,27 @@
 FROM python:3.7-alpine
 
+# Set working directory
 WORKDIR /app
 
-ENV FLASK_APP app.py
-ENV FLASK_RUN_HOST 0.0.0.0
+# Install nodejs npm
+RUN apk add --update npm 
 
-RUN apk add --no-cache gcc musl-dev linux-headers
+# Install pipenv
+RUN pip install pipenv
 
-COPY requirements.txt requirements.txt
+# Copy pipfile to workdir
+COPY Pipfile* ./
 
+# Install required packages
+RUN pipenv lock --requirements > requirements.txt
 RUN pip install -r requirements.txt
 
+# Copy all files to workdir
 COPY . .
 
-CMD ["flask", "run"]
+# Build the front end
+RUN cd frontend && npm install && npm run build
+
+# Run at port 8000
+EXPOSE 8000
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
