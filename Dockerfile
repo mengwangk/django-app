@@ -1,5 +1,9 @@
 FROM python:3.7-alpine
 
+# Set the proxy if you are behind firewall
+## ENV http_proxy XX
+## ENV https_proxy XX
+
 # Set working directory
 WORKDIR /app
 
