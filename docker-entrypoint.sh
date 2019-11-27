@@ -1,10 +1,10 @@
-#!/usr/bin/env bash
+#!/bin/sh
+
+# Wait for postgres to start up completely
+sleep 10
 
 # Apply database migrations
 python manage.py migrate                  
-
-# Collect static files
-python manage.py collectstatic --noinput  
 
 # Run the server
 python manage.py runserver 0.0.0.0:8000
