@@ -1,20 +1,26 @@
 #!/usr/bin/env bash
 
-python manage.py migrate                  # Apply database migrations
-python manage.py collectstatic --noinput  # Collect static files
+# Apply database migrations
+python manage.py migrate                  
+
+# Collect static files
+python manage.py collectstatic --noinput  
+
+# Run the server
+python manage.py runserver 0.0.0.0:8000
 
 # Prepare log files and start outputting logs to stdout
-touch /srv/logs/gunicorn.log
-touch /srv/logs/access.log
-tail -n 0 -f /srv/logs/*.log &
+# touch /app/logs/gunicorn.log
+# touch /app/logs/access.log
+# tail -n 0 -f /srv/logs/*.log &
 
-# Start Gunicorn processes
-echo Starting Gunicorn.
-exec gunicorn backend.wsgi:application \
-    --name django_app \
-    --bind 0.0.0.0:8000 \
-    --workers 3 \
-    --log-level=info \
-    --log-file=/srv/logs/gunicorn.log \
-    --access-logfile=/srv/logs/access.log \
-    "$@"
+# # Start Gunicorn processes
+# echo "Starting Gunicorn...."
+# exec gunicorn backend.wsgi:application \
+#     --name django_app \
+#     --bind 0.0.0.0:8000 \
+#     --workers 3 \
+#     --log-level=info \
+#     --log-file=/app/logs/gunicorn.log \
+#     --access-logfile=/app/logs/access.log \
+#     "$@"

@@ -37,12 +37,10 @@ RUN cd frontend && npm install && npm run build
 
 # Build the backend
 # RUN python manage.py makemigrations
-RUN python manage.py migrate
+# RUN python manage.py migrate
 
 # Run at port 8000
 EXPOSE 8000
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
-# Use gunicorn - http://michal.karzynski.pl/blog/2015/04/19/packaging-django-applications-as-docker-container-images/
-# COPY docker-entrypoint.sh .
-# ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
