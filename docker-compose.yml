@@ -3,10 +3,8 @@ services:
   db:
     image: "postgres"
     container_name: "postgres"
-    environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=pwd0123456789
-      - POSTGRES_DB=mydb
+    env_file:
+      - .env
     ports:
       - "54320:5432"
     volumes:

@@ -9,3 +9,6 @@ README.md
 .vscode
 
 postgres-data/
+
+venv/
+__pycache__/

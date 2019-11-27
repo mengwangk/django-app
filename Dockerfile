@@ -29,3 +29,6 @@ RUN cd frontend && npm install && npm run build
 # Run at port 8000
 EXPOSE 8000
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+# Use gunicorn
+# CMD ["gunicorn", "--workers=2", "--bind=0.0.0.0:8000", "app:app"]
