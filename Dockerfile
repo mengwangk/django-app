@@ -11,6 +11,9 @@ ENV PYTHONUNBUFFERED 1
 # Set working directory
 WORKDIR /app
 
+## Install postgresql required libs
+RUN apk update && apk add postgresql-dev gcc python3-dev musl-dev
+
 # Install nodejs npm
 RUN apk add --update npm 
 
