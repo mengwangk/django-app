@@ -26,3 +26,7 @@ urlpatterns = [
     url(r'^api/customers/(?P<pk>[0-9]+)$', customers_detail),
     url(r'^', FrontendAppView.as_view()),
 ]
+
+admin.site.site_header = "DjangoApp Admin"
+admin.site.site_title = "DjangoApp Admin Portal"
+admin.site.index_title = "Welcome to DjangoApp Portal"
